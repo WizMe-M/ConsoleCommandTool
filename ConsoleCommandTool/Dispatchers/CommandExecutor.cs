@@ -12,7 +12,7 @@ public class CommandExecutor : ICommandExecutor
     private readonly TextWriter _writer;
     private readonly Command[] _commands;
 
-    public CommandExecutor(Command[] commands, [Named("error")] TextWriter writer)
+    public CommandExecutor(Command[] commands, TextWriter writer)
     {
         _writer = writer;
         _commands = commands;

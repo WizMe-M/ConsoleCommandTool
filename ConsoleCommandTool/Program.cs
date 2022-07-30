@@ -2,6 +2,7 @@
 using ConsoleCommandTool.Dispatchers;
 using ConsoleCommandTool.Writers;
 using Ninject;
+using Ninject.Extensions.Conventions;
 using Ninject.Parameters;
 
 namespace ConsoleCommandTool;
@@ -11,23 +12,18 @@ public static class Program
     private static ICommandExecutor CreateExecutor()
     {
         var container = new StandardKernel();
-        container.Bind<TextWriter>().To<RedConsoleWriter>();
+        container.Bind(syntax => syntax.FromThisAssembly().SelectAllClasses().BindAllBaseClasses());
+        container.Bind(syntax => syntax.FromThisAssembly().SelectAllClasses().BindAllInterfaces());
+        
+        container.Bind<TextWriter>().To<RedConsoleWriter>()
+            .WhenInjectedInto<CommandExecutor>();
         container.Bind<TextWriter>().To<PromptConsoleWriter>()
             .WhenInjectedInto<Command>();
-         
-        container.Bind<Command>().To<PrintTimeCommand>();
-        container.Bind<Command>().To<TimerCommand>();
-        container.Bind<Command>().To<DetailedHelpCommand>();
-        container.Bind<Command>().To<HelpCommand>();
-        
-        container.Bind<ICommandExecutor>().To<CommandExecutor>()
-            .InSingletonScope()
-            .WithConstructorArgument(typeof(TextWriter), ctx => ctx.Kernel.Get<RedConsoleWriter>());
-        
+
         return container.Get<ICommandExecutor>();
     }
-    
-    
+
+
     /// <summary>
     /// Configures app launch mode
     /// </summary>
@@ -35,7 +31,7 @@ public static class Program
     public static void Main(string[] args)
     {
         var commandExecutor = CreateExecutor();
-        
+
         if (args.Length > 0)
             commandExecutor.Execute(args);
         else
