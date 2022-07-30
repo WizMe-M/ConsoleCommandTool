@@ -9,11 +9,12 @@ public static class TimerCommand
     /// Command, that freeze application on inputted time (ms)
     /// </summary>
     /// <param name="time">Time in milliseconds</param>
-    public static void ExecuteTimer(int time)
+    /// <param name="textWriter"></param>
+    public static void ExecuteTimer(int time, TextWriter textWriter)
     {
         var timeout = TimeSpan.FromMilliseconds(time);
-        Console.WriteLine("Waiting for " + timeout);
+        textWriter.WriteLine("Waiting for " + timeout);
         Thread.Sleep(timeout);
-        Console.WriteLine("Done!");
+        textWriter.WriteLine("Done!");
     }
 }

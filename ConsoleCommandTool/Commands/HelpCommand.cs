@@ -8,8 +8,9 @@ public static class HelpCommand
     /// <summary>
     /// Command, that prints all available commands to execute
     /// </summary>
-    public static void ExecuteHelp()
+    /// <param name="textWriter"></param>
+    public static void ExecuteHelp(TextWriter textWriter)
     {
-        Console.WriteLine("Available commands: timer, printtime, help, h");
+        textWriter.WriteLine("Available commands: timer, printtime, help, h");
     }
 }

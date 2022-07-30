@@ -8,8 +8,9 @@ public static class PrintTimeCommand
     /// <summary>
     /// Command, that prints current DateTime
     /// </summary>
-    public static void ExecutePrintTime()
+    /// <param name="textWriter"></param>
+    public static void ExecutePrintTime(TextWriter textWriter)
     {
-        Console.WriteLine(DateTime.Now);
+        textWriter.WriteLine(DateTime.Now);
     }
 }
