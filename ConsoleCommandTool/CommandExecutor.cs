@@ -19,13 +19,13 @@ public static class CommandExecutor
         var command = args[0];
 
         if (command == "timer")
-            TimerCommand.ExecuteTimer(int.Parse(args[1]), writer);
+            TimerCommand.Execute(int.Parse(args[1]), writer);
         else if (command == "printtime")
-            PrintTimeCommand.ExecutePrintTime(writer);
+            PrintTimeCommand.Execute(writer);
         else if (command == "h")
-            HelpCommand.ExecuteHelp(writer);
+            HelpCommand.Execute(writer);
         else if (command == "help")
-            DetailedHelpCommand.ExecuteDetailedHelp(args[1], writer);
+            DetailedHelpCommand.Execute(args[1], writer);
         else ShowUnknownCommandError(args[0], writer);
     }
 

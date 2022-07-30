@@ -10,7 +10,7 @@ public static class TimerCommand
     /// </summary>
     /// <param name="time">Time in milliseconds</param>
     /// <param name="textWriter"></param>
-    public static void ExecuteTimer(int time, TextWriter textWriter)
+    public static void Execute(int time, TextWriter textWriter)
     {
         var timeout = TimeSpan.FromMilliseconds(time);
         textWriter.WriteLine("Waiting for " + timeout);

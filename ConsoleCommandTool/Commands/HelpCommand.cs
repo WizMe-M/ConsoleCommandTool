@@ -9,7 +9,7 @@ public static class HelpCommand
     /// Command, that prints all available commands to execute
     /// </summary>
     /// <param name="textWriter"></param>
-    public static void ExecuteHelp(TextWriter textWriter)
+    public static void Execute(TextWriter textWriter)
     {
         textWriter.WriteLine("Available commands: timer, printtime, help, h");
     }

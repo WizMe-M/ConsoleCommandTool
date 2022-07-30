@@ -10,7 +10,7 @@ public static class DetailedHelpCommand
     /// </summary>
     /// <param name="commandName">Inputted command</param>
     /// <param name="textWriter"></param>
-    public static void ExecuteDetailedHelp(string commandName, TextWriter textWriter)
+    public static void Execute(string commandName, TextWriter textWriter)
     {
         textWriter.WriteLine("");
         if (commandName == "timer")

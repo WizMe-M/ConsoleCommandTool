@@ -9,7 +9,7 @@ public static class PrintTimeCommand
     /// Command, that prints current DateTime
     /// </summary>
     /// <param name="textWriter"></param>
-    public static void ExecutePrintTime(TextWriter textWriter)
+    public static void Execute(TextWriter textWriter)
     {
         textWriter.WriteLine(DateTime.Now);
     }
