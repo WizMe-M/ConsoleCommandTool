@@ -13,8 +13,8 @@ public static class Program
         var executor = new CommandExecutor(writerService);
         executor.Register(new TimerCommand());
         executor.Register(new PrintTimeCommand());
-        executor.Register(new DetailedHelpCommand(executor.FindCommand));
-        executor.Register(new HelpCommand(executor.GetAvailableCommands));
+        executor.Register(new DetailedHelpCommand(new Lazy<Func<string, Command?>>(executor.FindCommand)));
+        executor.Register(new HelpCommand(new Lazy<Func<Command[]>>(executor.GetAvailableCommands)));
         return executor;
     }
     

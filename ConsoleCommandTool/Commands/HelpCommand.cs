@@ -7,9 +7,9 @@ namespace ConsoleCommandTool.Commands;
 /// </summary>
 public class HelpCommand : Command
 {
-    private readonly Func<Command[]> _getAvailableCommands;
+    private readonly Lazy<Func<Command[]>> _getAvailableCommands;
 
-    public HelpCommand(Func<Command[]> getAvailableCommands) 
+    public HelpCommand(Lazy<Func<Command[]>> getAvailableCommands) 
         : base("h", "h", "Prints name of all available commands to execute")
     {
         _getAvailableCommands = getAvailableCommands;
@@ -17,7 +17,7 @@ public class HelpCommand : Command
 
     public override void Execute(string[] args, TextWriter writer)
     {
-        var commands = _getAvailableCommands();
+        var commands = _getAvailableCommands.Value();
         var builder = new StringBuilder();
         builder.Append("Available commands:\n");
         foreach (var command in commands)

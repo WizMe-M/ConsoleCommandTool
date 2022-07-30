@@ -5,13 +5,13 @@
 /// </summary>
 public class DetailedHelpCommand : Command
 {
-    private readonly Func<string, Command?> _findCommand;
+    private readonly Lazy<Func<string, Command?>> _findCommand;
 
     /// <summary>
     /// Initialize <see cref="DetailedHelpCommand"/> with delegate <paramref name="findCommand"/>
     /// </summary>
     /// <param name="findCommand">Function, that finds command by name</param>
-    public DetailedHelpCommand(Func<string, Command?> findCommand)
+    public DetailedHelpCommand(Lazy<Func<string, Command?>> findCommand)
         : base("help", "help <cmd name>", "Prints command usage and description ")
     {
         _findCommand = findCommand;
@@ -19,9 +19,8 @@ public class DetailedHelpCommand : Command
 
     public override void Execute(string[] args, TextWriter writer)
     {
-        
         var commandName = args[0];
-        var cmd = _findCommand(commandName);
+        var cmd = _findCommand.Value(commandName);
         if (cmd is null)
         {
             writer.WriteLine($"Sorry, can't find command with name <{commandName}>");
