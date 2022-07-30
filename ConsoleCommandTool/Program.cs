@@ -11,8 +11,7 @@ public static class Program
     private static ICommandExecutor CreateExecutor()
     {
         var container = new StandardKernel();
-        container.Bind<TextWriter>().To<RedConsoleWriter>()
-            .Named("error");
+        container.Bind<TextWriter>().To<RedConsoleWriter>();
         container.Bind<TextWriter>().To<PromptConsoleWriter>()
             .WhenInjectedInto<Command>();
          
@@ -21,7 +20,9 @@ public static class Program
         container.Bind<Command>().To<DetailedHelpCommand>();
         container.Bind<Command>().To<HelpCommand>();
         
-        container.Bind<ICommandExecutor>().To<CommandExecutor>().InSingletonScope();
+        container.Bind<ICommandExecutor>().To<CommandExecutor>()
+            .InSingletonScope()
+            .WithConstructorArgument(typeof(TextWriter), ctx => ctx.Kernel.Get<RedConsoleWriter>());
         
         return container.Get<ICommandExecutor>();
     }
