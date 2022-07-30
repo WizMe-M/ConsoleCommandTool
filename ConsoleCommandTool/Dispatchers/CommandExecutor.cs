@@ -29,6 +29,13 @@ public class CommandExecutor
     public Command[] GetAvailableCommands() => _commands.ToArray();
 
     /// <summary>
+    /// Find command by it's name
+    /// </summary>
+    /// <returns> <see cref="Command"/> or <c>null</c>, if not found </returns>
+    private Command? FindCommand(string commandName) =>
+        _commands.FirstOrDefault(cmd => string.Equals(cmd.Name, commandName, StringComparison.OrdinalIgnoreCase));
+
+    /// <summary>
     /// Executes command, if it exists in command list
     /// </summary>
     /// <param name="args">Command name and arguments</param>
@@ -39,30 +46,10 @@ public class CommandExecutor
         var cmd = FindCommand(commandName);
         if (cmd is null)
         {
-            ShowUnknownCommandError(commandName, writer);
+            writer.WriteLine($"Sorry. Unknown command {commandName}");
             return;
         }
 
         cmd.Execute(args, writer);
-    }
-
-    /// <summary>
-    /// Find command by it's name
-    /// </summary>
-    /// <param name="commandName">Name of the command</param>
-    /// <returns>
-    /// <see cref="Command"/> or <c>null</c> if not found
-    /// </returns>
-    private Command? FindCommand(string commandName) =>
-        _commands.FirstOrDefault(cmd => string.Equals(cmd.Name, commandName, StringComparison.OrdinalIgnoreCase));
-
-    /// <summary>
-    /// Prints input-error
-    /// </summary>
-    /// <param name="command">Input</param>
-    /// <param name="textWriter"></param>
-    public static void ShowUnknownCommandError(string command, TextWriter textWriter)
-    {
-        textWriter.WriteLine("Sorry. Unknown command {0}", command);
     }
 }
