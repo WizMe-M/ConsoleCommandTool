@@ -8,21 +8,27 @@ public abstract class Command
     /// <param name="name">Command's name</param>
     /// <param name="usage">Usage example</param>
     /// <param name="description">Description of how command executes</param>
-    protected Command(string name, string usage, string description)
+    /// <param name="writer">Text writer to command output</param>
+    protected Command(string name, string usage, string description, TextWriter writer)
     {
         Name = name;
         Usage = usage;
         Description = description;
+        Writer = writer;
     }
 
     public string Name { get; }
     public string Usage { get; }
     public string Description { get; }
+    
+    /// <summary>
+    /// <see cref="TextWriter"/> in such command output will be printed
+    /// </summary>
+    public TextWriter Writer { get; }
 
     /// <summary>
-    /// Executes command with <paramref name="args"/> in <paramref name="writer"/>
+    /// Executes command with <paramref name="args"/>
     /// </summary>
     /// <param name="args">Command arguments</param>
-    /// <param name="writer">Writer, that will print all command output</param>
-    public abstract void Execute(string[] args, TextWriter writer);
+    public abstract void Execute(string[] args);
 }

@@ -5,12 +5,12 @@
 /// </summary>
 public class PrintTimeCommand : Command
 {
-    public PrintTimeCommand() : base("printtime", "printtime", "Prints current time")
+    public PrintTimeCommand(TextWriter writer) : base("printtime", "printtime", "Prints current time", writer)
     {
     }
 
-    public override void Execute(string[] args, TextWriter writer)
+    public override void Execute(string[] args)
     {
-        writer.WriteLine(DateTime.Now);
+        Writer.WriteLine(DateTime.Now);
     }
 }

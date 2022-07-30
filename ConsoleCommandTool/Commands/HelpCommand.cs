@@ -10,13 +10,13 @@ public class HelpCommand : Command
 {
     private readonly Lazy<ICommandExecutor> _executor;
 
-    public HelpCommand(Lazy<ICommandExecutor> executor) 
-        : base("h", "h", "Prints name of all available commands to execute")
+    public HelpCommand(TextWriter writer, Lazy<ICommandExecutor> executor) 
+        : base("h", "h", "Prints name of all available commands to execute", writer)
     {
         _executor = executor;
     }
 
-    public override void Execute(string[] args, TextWriter writer)
+    public override void Execute(string[] args)
     {
         var commands = _executor.Value.GetAvailableCommands();
         var builder = new StringBuilder();
@@ -25,6 +25,6 @@ public class HelpCommand : Command
         {
             builder.Append($"{command.Name}{Environment.NewLine}");
         }
-        writer.WriteLine(builder.ToString());
+        Writer.WriteLine(builder.ToString());
     }
 }

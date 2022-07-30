@@ -5,22 +5,22 @@
 /// </summary>
 public class TimerCommand : Command
 {
-    public TimerCommand() : base("timer", "timer <ms>", "Starts timer for <ms> milliseconds")
+    public TimerCommand(TextWriter writer) : base("timer", "timer <ms>", "Starts timer for <ms> milliseconds", writer)
     {
     }
 
-    public override void Execute(string[] args, TextWriter writer)
+    public override void Execute(string[] args)
     {
         var value = args[0];
         if (!int.TryParse(value, out var time))
         {
-            writer.WriteLine($"Argument wasn't a number! Input: \"{value}\"");
-            writer.WriteLine("Please, input valid time in milliseconds");
+            Writer.WriteLine($"Argument wasn't a number! Input: \"{value}\"");
+            Writer.WriteLine("Please, input valid time in milliseconds");
             return;
         }
         var timeout = TimeSpan.FromMilliseconds(time);
-        writer.WriteLine("Waiting for " + timeout);
+        Writer.WriteLine("Waiting for " + timeout);
         Thread.Sleep(timeout);
-        writer.WriteLine("Done!");
+        Writer.WriteLine("Done!");
     }
 }
