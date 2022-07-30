@@ -20,7 +20,9 @@ public static class Program
         container.Bind<Command>().To<TimerCommand>();
         container.Bind<Command>().To<DetailedHelpCommand>();
         container.Bind<Command>().To<HelpCommand>();
-        container.Bind<ICommandExecutor>().To<CommandExecutor>();
+        
+        container.Bind<ICommandExecutor>().To<CommandExecutor>().InSingletonScope();
+        
         return container.Get<ICommandExecutor>();
     }
     
