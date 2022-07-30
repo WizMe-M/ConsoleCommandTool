@@ -5,7 +5,7 @@
 /// </summary>
 public class DetailedHelpCommand : Command
 {
-    private Func<string, Command?> _findCommand;
+    private readonly Func<string, Command?> _findCommand;
 
     /// <summary>
     /// Initialize <see cref="DetailedHelpCommand"/> with delegate <paramref name="findCommand"/>
