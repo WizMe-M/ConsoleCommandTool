@@ -20,7 +20,17 @@ public class ServiceLocator : IServiceLocator
         _services[key].Add(service);
     }
 
-    public TService GetService<TService>() => (TService)_services[typeof(TService)].Single();
+    public TService GetService<TService>()
+    {
+        if (_services.ContainsKey(typeof(TService)))
+            return (TService)_services[typeof(TService)].Single();
+        throw new InvalidOperationException($"Can't resolve service: {typeof(TService)}");
+    }
 
-    public IEnumerable<TService> GetAll<TService>() => _services[typeof(TService)].Cast<TService>();
+    public IEnumerable<TService> GetAll<TService>()
+    {
+        if (_services.ContainsKey(typeof(TService)))
+            return _services[typeof(TService)].Cast<TService>();
+        throw new InvalidOperationException($"Can't resolve services: {typeof(TService)}");
+    }
 }
