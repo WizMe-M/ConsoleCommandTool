@@ -15,7 +15,7 @@ public static class Program
     }
 
     /// <summary>
-    /// Runs inputted command
+    /// Runs inputted command (dispatchers input)
     /// </summary>
     /// <param name="args">Command and it's argument</param>
     private static void RunCommand(string[] args)
@@ -73,7 +73,7 @@ public static class Program
     /// <summary>
     /// Command, that freeze application on inputted time (ms)
     /// </summary>
-    /// <param name="time"></param>
+    /// <param name="time">Time in milliseconds</param>
     private static void ExecuteTimer(int time)
     {
         var timeout = TimeSpan.FromMilliseconds(time);
