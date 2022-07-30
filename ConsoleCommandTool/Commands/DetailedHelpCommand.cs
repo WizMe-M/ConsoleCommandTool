@@ -19,7 +19,8 @@ public class DetailedHelpCommand : Command
 
     public override void Execute(string[] args, TextWriter writer)
     {
-        var commandName = args[1];
+        
+        var commandName = args[0];
         var cmd = _findCommand(commandName);
         if (cmd is null)
         {

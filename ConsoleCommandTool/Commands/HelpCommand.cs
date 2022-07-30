@@ -19,7 +19,7 @@ public class HelpCommand : Command
     {
         var commands = _getAvailableCommands();
         var builder = new StringBuilder();
-        builder.Append("Available commands: ");
+        builder.Append("Available commands:\n");
         foreach (var command in commands)
         {
             builder.Append($"{command.Name}{Environment.NewLine}");

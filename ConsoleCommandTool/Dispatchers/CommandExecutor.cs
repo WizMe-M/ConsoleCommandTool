@@ -39,6 +39,7 @@ public class CommandExecutor : ICommandExecutor
             return;
         }
 
-        cmd.Execute(args, writer);
+        var commandArguments = args.Skip(1).ToArray();
+        cmd.Execute(commandArguments, writer);
     }
 }
