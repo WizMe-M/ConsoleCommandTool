@@ -1,9 +1,6 @@
-﻿using ConsoleCommandTool.Commands;
+﻿using ConsoleCommandTool.DI;
 using ConsoleCommandTool.Dispatchers;
-using ConsoleCommandTool.Writers;
 using Ninject;
-using Ninject.Extensions.Conventions;
-using Ninject.Parameters;
 
 namespace ConsoleCommandTool;
 
@@ -11,15 +8,7 @@ public static class Program
 {
     private static ICommandExecutor CreateExecutor()
     {
-        var container = new StandardKernel();
-        container.Bind(syntax => syntax.FromThisAssembly().SelectAllClasses().BindAllBaseClasses());
-        container.Bind(syntax => syntax.FromThisAssembly().SelectAllClasses().BindAllInterfaces());
-        
-        container.Bind<TextWriter>().To<RedConsoleWriter>()
-            .WhenInjectedInto<CommandExecutor>();
-        container.Bind<TextWriter>().To<PromptConsoleWriter>()
-            .WhenInjectedInto<Command>();
-
+        var container = new StandardKernel(new CommandsModule());
         return container.Get<ICommandExecutor>();
     }
 
