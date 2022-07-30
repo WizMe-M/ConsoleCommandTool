@@ -9,27 +9,9 @@ public static class Program
     public static void Main(string[] args)
     {
         if (args.Length > 0)
-            RunCommand(args);
+            CommandExecutor.RunCommand(args);
         else
             RunInteractiveMode();
-    }
-
-    /// <summary>
-    /// Runs inputted command (dispatchers input)
-    /// </summary>
-    /// <param name="args">Command and it's argument</param>
-    private static void RunCommand(string[] args)
-    {
-        var command = args[0];
-        if (command == "timer")
-            ExecuteTimer(int.Parse(args[1]));
-        else if (command == "printtime")
-            ExecutePrintTime();
-        else if (command == "h")
-            ExecuteHelp();
-        else if (command == "help")
-            ExecuteDetailedHelp(args[1]);
-        else ShowUnknownCommandError(args[0]);
     }
 
     /// <summary>
@@ -41,31 +23,22 @@ public static class Program
         {
             var line = Console.ReadLine();
             if (line == null || line == "exit") return;
-            RunCommand(line.Split(' '));
+            CommandExecutor.RunCommand(line.Split(' '));
         }
     }
 
     /// <summary>
     /// Command, that prints all available commands to execute
     /// </summary>
-    private static void ExecuteHelp()
+    public static void ExecuteHelp()
     {
         Console.WriteLine("Available commands: timer, printtime, help, h");
     }
 
     /// <summary>
-    /// Prints input-error
-    /// </summary>
-    /// <param name="command">Input</param>
-    private static void ShowUnknownCommandError(string command)
-    {
-        Console.WriteLine("Sorry. Unknown command {0}", command);
-    }
-
-    /// <summary>
     /// Command, that prints current DateTime
     /// </summary>
-    private static void ExecutePrintTime()
+    public static void ExecutePrintTime()
     {
         Console.WriteLine(DateTime.Now);
     }
@@ -74,7 +47,7 @@ public static class Program
     /// Command, that freeze application on inputted time (ms)
     /// </summary>
     /// <param name="time">Time in milliseconds</param>
-    private static void ExecuteTimer(int time)
+    public static void ExecuteTimer(int time)
     {
         var timeout = TimeSpan.FromMilliseconds(time);
         Console.WriteLine("Waiting for " + timeout);
@@ -86,7 +59,7 @@ public static class Program
     /// Command, that prints detailed help of command
     /// </summary>
     /// <param name="commandName">Inputted command</param>
-    private static void ExecuteDetailedHelp(string commandName)
+    public static void ExecuteDetailedHelp(string commandName)
     {
         Console.WriteLine("");
         if (commandName == "timer")
@@ -99,7 +72,7 @@ public static class Program
             Console.WriteLine("help <command> — prints help for <command>");
         else
         {
-            ShowUnknownCommandError(commandName);
+            CommandExecutor.ShowUnknownCommandError(commandName);
         }
     }
 }
