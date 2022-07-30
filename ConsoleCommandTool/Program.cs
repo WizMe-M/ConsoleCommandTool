@@ -2,6 +2,10 @@
 
 public static class Program
 {
+    /// <summary>
+    /// Configures app launch mode
+    /// </summary>
+    /// <param name="args">Some program arguments</param>
     public static void Main(string[] args)
     {
         if (args.Length > 0)
@@ -10,6 +14,10 @@ public static class Program
             RunInteractiveMode();
     }
 
+    /// <summary>
+    /// Runs inputted command
+    /// </summary>
+    /// <param name="args">Command and it's argument</param>
     private static void RunCommand(string[] args)
     {
         var command = args[0];
@@ -24,6 +32,9 @@ public static class Program
         else ShowUnknownCommandError(args[0]);
     }
 
+    /// <summary>
+    /// Provides application run until it'll get "exit" or empty input
+    /// </summary>
     public static void RunInteractiveMode()
     {
         while (true)
@@ -34,22 +45,35 @@ public static class Program
         }
     }
 
+    /// <summary>
+    /// Command, that prints all available commands to execute
+    /// </summary>
     private static void ExecuteHelp()
     {
         Console.WriteLine("Available commands: timer, printtime, help, h");
     }
 
-
+    /// <summary>
+    /// Prints input-error
+    /// </summary>
+    /// <param name="command">Input</param>
     private static void ShowUnknownCommandError(string command)
     {
         Console.WriteLine("Sorry. Unknown command {0}", command);
     }
 
+    /// <summary>
+    /// Command, that prints current DateTime
+    /// </summary>
     private static void ExecutePrintTime()
     {
         Console.WriteLine(DateTime.Now);
     }
 
+    /// <summary>
+    /// Command, that freeze application on inputted time (ms)
+    /// </summary>
+    /// <param name="time"></param>
     private static void ExecuteTimer(int time)
     {
         var timeout = TimeSpan.FromMilliseconds(time);
@@ -58,6 +82,10 @@ public static class Program
         Console.WriteLine("Done!");
     }
 
+    /// <summary>
+    /// Command, that prints detailed help of command
+    /// </summary>
+    /// <param name="commandName">Inputted command</param>
     private static void ExecuteDetailedHelp(string commandName)
     {
         Console.WriteLine("");
