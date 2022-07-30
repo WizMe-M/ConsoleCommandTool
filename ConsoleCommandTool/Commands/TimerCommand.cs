@@ -5,7 +5,7 @@
 /// </summary>
 public class TimerCommand : Command
 {
-    public TimerCommand(string name, string usage, string description) : base(name, usage, description)
+    public TimerCommand() : base("timer", "timer <ms>", "")
     {
     }
 
