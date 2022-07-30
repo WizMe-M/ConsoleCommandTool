@@ -1,4 +1,6 @@
-﻿namespace ConsoleCommandTool;
+﻿using ConsoleCommandTool.Dispatchers;
+
+namespace ConsoleCommandTool;
 
 public static class Program
 {

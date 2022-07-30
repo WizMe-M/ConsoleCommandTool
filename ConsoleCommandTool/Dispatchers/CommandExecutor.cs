@@ -1,6 +1,6 @@
 ﻿using ConsoleCommandTool.Commands;
 
-namespace ConsoleCommandTool;
+namespace ConsoleCommandTool.Dispatchers;
 
 /// <summary>
 /// Command dispatcher.

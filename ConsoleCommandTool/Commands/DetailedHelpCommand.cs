@@ -1,4 +1,6 @@
-﻿namespace ConsoleCommandTool.Commands;
+﻿using ConsoleCommandTool.Dispatchers;
+
+namespace ConsoleCommandTool.Commands;
 
 /// <summary>
 /// Represents 
