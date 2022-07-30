@@ -9,16 +9,16 @@ namespace ConsoleCommandTool.Dispatchers;
 public class CommandExecutor : ICommandExecutor
 {
     private readonly TextWriter _writer;
-    private readonly List<Command> _commands;
+    private readonly Command[] _commands;
 
-    public CommandExecutor(TextWriter writer)
+    public CommandExecutor(Command[] commands, TextWriter writer)
     {
         _writer = writer;
-        _commands = new List<Command>();
+        _commands = commands;
     }
 
-    /// <inheritdoc/>
-    public void Register(Command command) => _commands.Add(command);
+    // /// <inheritdoc/>
+    // public void Register(Command command) => _commands.Add(command);
 
     public Command[] GetAvailableCommands() => _commands.ToArray();
 

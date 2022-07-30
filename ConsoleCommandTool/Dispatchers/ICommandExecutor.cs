@@ -4,10 +4,10 @@ namespace ConsoleCommandTool.Dispatchers;
 
 public interface ICommandExecutor
 {
-    /// <summary>
-    /// Registers new command in executor list
-    /// </summary>
-    void Register(Command command);
+    // /// <summary>
+    // /// Registers new command in executor list
+    // /// </summary>
+    // void Register(Command command);
     
     /// <summary>
     /// Executes some command with <see cref="args"/>
