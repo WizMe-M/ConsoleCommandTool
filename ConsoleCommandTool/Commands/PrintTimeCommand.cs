@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents "printtime" command
 /// </summary>
-public static class PrintTimeCommand
+public class PrintTimeCommand : Command
 {
     /// <summary>
     /// Command, that prints current DateTime
@@ -12,5 +12,14 @@ public static class PrintTimeCommand
     public static void Execute(TextWriter textWriter)
     {
         textWriter.WriteLine(DateTime.Now);
+    }
+
+    public PrintTimeCommand(string name, string usage, string description) : base(name, usage, description)
+    {
+    }
+
+    public override void Execute(string[] args, TextWriter writer)
+    {
+        writer.WriteLine(DateTime.Now);
     }
 }
