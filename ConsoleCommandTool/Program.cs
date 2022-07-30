@@ -12,7 +12,7 @@ public static class Program
     {
         var container = new StandardKernel();
         container.Bind<TextWriter>().To<RedConsoleWriter>()
-            .WhenInjectedInto<ICommandExecutor>();
+            .Named("error");
         container.Bind<TextWriter>().To<PromptConsoleWriter>()
             .WhenInjectedInto<Command>();
          

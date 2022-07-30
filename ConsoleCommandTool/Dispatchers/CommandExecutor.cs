@@ -1,4 +1,5 @@
 ﻿using ConsoleCommandTool.Commands;
+using Ninject;
 
 namespace ConsoleCommandTool.Dispatchers;
 
@@ -11,7 +12,7 @@ public class CommandExecutor : ICommandExecutor
     private readonly TextWriter _writer;
     private readonly Command[] _commands;
 
-    public CommandExecutor(Command[] commands, TextWriter writer)
+    public CommandExecutor(Command[] commands, [Named("error")] TextWriter writer)
     {
         _writer = writer;
         _commands = commands;
