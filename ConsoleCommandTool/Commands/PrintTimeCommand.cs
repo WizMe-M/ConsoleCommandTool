@@ -5,7 +5,7 @@
 /// </summary>
 public class PrintTimeCommand : Command
 {
-    public PrintTimeCommand(string name, string usage, string description) : base(name, usage, description)
+    public PrintTimeCommand() : base("printtime", "printtime", "")
     {
     }
 

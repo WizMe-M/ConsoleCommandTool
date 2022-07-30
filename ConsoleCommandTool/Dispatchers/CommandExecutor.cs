@@ -21,7 +21,7 @@ public class CommandExecutor
     public void RegisterAllCommands()
     {
         _commands.Add(new TimerCommand("timer", "", ""));
-        _commands.Add(new PrintTimeCommand("printtime", "", ""));
+        _commands.Add(new PrintTimeCommand());
         _commands.Add(new HelpCommand("h", "", ""));
         _commands.Add(new DetailedHelpCommand("help", "", ""));
     }
