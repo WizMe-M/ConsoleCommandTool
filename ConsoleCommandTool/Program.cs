@@ -10,14 +10,14 @@ public static class Program
     {
         var container = new StandardKernel();
         container.Bind<TextWriter>().ToConstant(Console.Out);
-        var writer = container.Get<TextWriter>();
-        
-        var executor = new CommandExecutor(Array.Empty<Command>(), writer);
+        container.Bind<ICommandExecutor>().To<CommandExecutor>();
+        container.Bind<Command>().To<PrintTimeCommand>();
+        // var executor = new CommandExecutor(Array.Empty<Command>(), writer);
         // executor.Register(new TimerCommand());
         // executor.Register(new PrintTimeCommand());
         // executor.Register(new DetailedHelpCommand(new Lazy<Func<string, Command?>>(executor.FindCommand)));
         // executor.Register(new HelpCommand(new Lazy<Func<Command[]>>(executor.GetAvailableCommands)));
-        return executor;
+        return container.Get<ICommandExecutor>();
     }
     
     
