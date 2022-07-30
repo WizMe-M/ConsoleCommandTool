@@ -1,5 +1,6 @@
 ﻿using ConsoleCommandTool.Commands;
 using ConsoleCommandTool.Dispatchers;
+using ConsoleCommandTool.Writers;
 using Ninject;
 using Ninject.Parameters;
 
@@ -10,7 +11,11 @@ public static class Program
     private static ICommandExecutor CreateExecutor()
     {
         var container = new StandardKernel();
-        container.Bind<TextWriter>().ToConstant(Console.Out);
+        container.Bind<TextWriter>().To<RedConsoleWriter>()
+            .WhenInjectedInto<ICommandExecutor>();
+        container.Bind<TextWriter>().To<PromptConsoleWriter>()
+            .WhenInjectedInto<Command>();
+         
         container.Bind<Command>().To<PrintTimeCommand>();
         container.Bind<Command>().To<TimerCommand>();
         container.Bind<Command>().To<DetailedHelpCommand>();
