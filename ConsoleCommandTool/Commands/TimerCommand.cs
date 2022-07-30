@@ -5,7 +5,7 @@
 /// </summary>
 public class TimerCommand : Command
 {
-    public TimerCommand() : base("timer", "timer <ms>", "")
+    public TimerCommand() : base("timer", "timer <ms>", "Starts timer for <ms> milliseconds")
     {
     }
 
