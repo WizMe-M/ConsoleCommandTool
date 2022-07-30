@@ -23,7 +23,7 @@ public class CommandExecutor
         _commands.Add(new TimerCommand());
         _commands.Add(new PrintTimeCommand());
         _commands.Add(new DetailedHelpCommand(FindCommand));
-        _commands.Add(new HelpCommand(GetAvailableCommands()));
+        _commands.Add(new HelpCommand(GetAvailableCommands));
     }
 
     public Command[] GetAvailableCommands() => _commands.ToArray();
