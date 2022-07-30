@@ -1,4 +1,6 @@
-﻿namespace ConsoleCommandTool;
+﻿using ConsoleCommandTool.Commands;
+
+namespace ConsoleCommandTool;
 
 /// <summary>
 /// Command dispatcher.
@@ -15,13 +17,13 @@ public static class CommandExecutor
     {
         var command = args[0];
         if (command == "timer")
-            Program.ExecuteTimer(int.Parse(args[1]));
+            TimerCommand.ExecuteTimer(int.Parse(args[1]));
         else if (command == "printtime")
-            Program.ExecutePrintTime();
+            PrintTimeCommand.ExecutePrintTime();
         else if (command == "h")
-            Program.ExecuteHelp();
+            HelpCommand.ExecuteHelp();
         else if (command == "help")
-            Program.ExecuteDetailedHelp(args[1]);
+            DetailedHelpCommand.ExecuteDetailedHelp(args[1]);
         else ShowUnknownCommandError(args[0]);
     }
 
