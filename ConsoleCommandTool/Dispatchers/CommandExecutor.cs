@@ -22,9 +22,11 @@ public class CommandExecutor
     {
         _commands.Add(new TimerCommand());
         _commands.Add(new PrintTimeCommand());
-        _commands.Add(new HelpCommand("h", "", ""));
         _commands.Add(new DetailedHelpCommand("help", "", ""));
+        _commands.Add(new HelpCommand(GetAvailableCommands()));
     }
+
+    public Command[] GetAvailableCommands() => _commands.ToArray();
 
     /// <summary>
     /// Executes command, if it exists in command list
