@@ -10,22 +10,25 @@ public static class Program
     /// <param name="args">Some program arguments</param>
     public static void Main(string[] args)
     {
+        var commandExecutor = new CommandExecutor();
+        commandExecutor.RegisterAllCommands();
+        
         if (args.Length > 0)
-            CommandExecutor.RunCommand(args);
+            commandExecutor.Execute(args);
         else
-            RunInteractiveMode();
+            RunInteractiveMode(commandExecutor);
     }
 
     /// <summary>
     /// Provides application run until it'll get "exit" or empty input
     /// </summary>
-    public static void RunInteractiveMode()
+    private static void RunInteractiveMode(CommandExecutor executor)
     {
         while (true)
         {
             var line = Console.ReadLine();
             if (line == null || line == "exit") return;
-            CommandExecutor.RunCommand(line.Split(' '));
+            executor.Execute(line.Split(' '));
         }
     }
 }
