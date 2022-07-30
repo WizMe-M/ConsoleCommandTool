@@ -6,7 +6,7 @@ namespace ConsoleCommandTool.Dispatchers;
 /// Command dispatcher.
 /// <para>Provides correct command execution</para>
 /// </summary>
-public class CommandExecutor
+public class CommandExecutor : ICommandExecutor
 {
     private readonly List<Command> _commands;
 
@@ -15,16 +15,8 @@ public class CommandExecutor
         _commands = new List<Command>();
     }
 
-    /// <summary>
-    /// Register all available commands
-    /// </summary>
-    public void RegisterAllCommands()
-    {
-        _commands.Add(new TimerCommand());
-        _commands.Add(new PrintTimeCommand());
-        _commands.Add(new DetailedHelpCommand(FindCommand));
-        _commands.Add(new HelpCommand(GetAvailableCommands));
-    }
+    /// <inheritdoc/>
+    public void Register(Command command) => _commands.Add(command);
 
     public Command[] GetAvailableCommands() => _commands.ToArray();
 
@@ -32,13 +24,10 @@ public class CommandExecutor
     /// Find command by it's name
     /// </summary>
     /// <returns> <see cref="Command"/> or <c>null</c>, if not found </returns>
-    private Command? FindCommand(string commandName) =>
+    public Command? FindCommand(string commandName) =>
         _commands.FirstOrDefault(cmd => string.Equals(cmd.Name, commandName, StringComparison.OrdinalIgnoreCase));
 
-    /// <summary>
-    /// Executes command, if it exists in command list
-    /// </summary>
-    /// <param name="args">Command name and arguments</param>
+    /// <inheritdoc/>
     public void Execute(string[] args)
     {
         var writer = Console.Out;
