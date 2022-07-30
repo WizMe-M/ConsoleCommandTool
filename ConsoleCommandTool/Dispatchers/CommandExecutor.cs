@@ -17,15 +17,10 @@ public class CommandExecutor : ICommandExecutor
         _commands = commands;
     }
 
-    // /// <inheritdoc/>
-    // public void Register(Command command) => _commands.Add(command);
-
+    /// <inheritdoc/>
     public Command[] GetAvailableCommands() => _commands.ToArray();
 
-    /// <summary>
-    /// Find command by it's name
-    /// </summary>
-    /// <returns> <see cref="Command"/> or <c>null</c>, if not found </returns>
+    /// <inheritdoc/>
     public Command? FindCommand(string commandName) =>
         _commands.FirstOrDefault(cmd => string.Equals(cmd.Name, commandName, StringComparison.OrdinalIgnoreCase));
 

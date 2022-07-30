@@ -1,26 +1,28 @@
-﻿namespace ConsoleCommandTool.Commands;
+﻿using ConsoleCommandTool.Dispatchers;
+
+namespace ConsoleCommandTool.Commands;
 
 /// <summary>
 /// Represents 
 /// </summary>
 public class DetailedHelpCommand : Command
 {
-    private readonly Lazy<Func<string, Command?>> _findCommand;
+    private readonly Lazy<ICommandExecutor> _executor;
 
     /// <summary>
-    /// Initialize <see cref="DetailedHelpCommand"/> with delegate <paramref name="findCommand"/>
+    /// Initialize <see cref="DetailedHelpCommand"/> with lazy <paramref name="executor"/>
     /// </summary>
-    /// <param name="findCommand">Function, that finds command by name</param>
-    public DetailedHelpCommand(Lazy<Func<string, Command?>> findCommand)
+    /// <param name="executor"><see cref="Lazy{T}"/> ICommandExecutor, that contains method FindCommand by name</param>
+    public DetailedHelpCommand(Lazy<ICommandExecutor> executor)
         : base("help", "help <cmd name>", "Prints command usage and description ")
     {
-        _findCommand = findCommand;
+        _executor = executor;
     }
 
     public override void Execute(string[] args, TextWriter writer)
     {
         var commandName = args[0];
-        var cmd = _findCommand.Value(commandName);
+        var cmd = _executor.Value.FindCommand(commandName);
         if (cmd is null)
         {
             writer.WriteLine($"Sorry, can't find command with name <{commandName}>");

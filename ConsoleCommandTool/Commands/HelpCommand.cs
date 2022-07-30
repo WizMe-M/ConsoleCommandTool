@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using ConsoleCommandTool.Dispatchers;
 
 namespace ConsoleCommandTool.Commands;
 
@@ -7,17 +8,17 @@ namespace ConsoleCommandTool.Commands;
 /// </summary>
 public class HelpCommand : Command
 {
-    private readonly Lazy<Func<Command[]>> _getAvailableCommands;
+    private readonly Lazy<ICommandExecutor> _executor;
 
-    public HelpCommand(Lazy<Func<Command[]>> getAvailableCommands) 
+    public HelpCommand(Lazy<ICommandExecutor> executor) 
         : base("h", "h", "Prints name of all available commands to execute")
     {
-        _getAvailableCommands = getAvailableCommands;
+        _executor = executor;
     }
 
     public override void Execute(string[] args, TextWriter writer)
     {
-        var commands = _getAvailableCommands.Value();
+        var commands = _executor.Value.GetAvailableCommands();
         var builder = new StringBuilder();
         builder.Append("Available commands:\n");
         foreach (var command in commands)

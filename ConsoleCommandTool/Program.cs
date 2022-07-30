@@ -11,11 +11,11 @@ public static class Program
     {
         var container = new StandardKernel();
         container.Bind<TextWriter>().ToConstant(Console.Out);
-        container.Bind<ICommandExecutor>().To<CommandExecutor>();
         container.Bind<Command>().To<PrintTimeCommand>();
         container.Bind<Command>().To<TimerCommand>();
-        // executor.Register(new DetailedHelpCommand(new Lazy<Func<string, Command?>>(executor.FindCommand)));
-        // executor.Register(new HelpCommand(new Lazy<Func<Command[]>>(executor.GetAvailableCommands)));
+        container.Bind<Command>().To<DetailedHelpCommand>();
+        container.Bind<Command>().To<HelpCommand>();
+        container.Bind<ICommandExecutor>().To<CommandExecutor>();
         return container.Get<ICommandExecutor>();
     }
     
