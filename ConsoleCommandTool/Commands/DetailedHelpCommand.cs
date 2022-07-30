@@ -1,32 +1,33 @@
-﻿using ConsoleCommandTool.Dispatchers;
-
-namespace ConsoleCommandTool.Commands;
+﻿namespace ConsoleCommandTool.Commands;
 
 /// <summary>
 /// Represents 
 /// </summary>
 public class DetailedHelpCommand : Command
 {
-    public DetailedHelpCommand(string name, string usage, string description) : base(name, usage, description)
+    private Func<string, Command?> _findCommand;
+
+    /// <summary>
+    /// Initialize <see cref="DetailedHelpCommand"/> with delegate <paramref name="findCommand"/>
+    /// </summary>
+    /// <param name="findCommand">Function, that finds command by name</param>
+    public DetailedHelpCommand(Func<string, Command?> findCommand)
+        : base("help", "help <cmd name>", "Prints command usage and description ")
     {
+        _findCommand = findCommand;
     }
 
     public override void Execute(string[] args, TextWriter writer)
     {
         var commandName = args[1];
-        writer.WriteLine("");
-
-        if (commandName == "timer")
-            writer.WriteLine("timer <ms> — starts timer for <ms> milliseconds");
-        else if (commandName == "printtime")
-            writer.WriteLine("printtime — prints current time");
-        else if (commandName == "h")
-            writer.WriteLine("h — prints available commands list");
-        else if (commandName == "help")
-            writer.WriteLine("help <command> — prints help for <command>");
-        else
+        var cmd = _findCommand(commandName);
+        if (cmd is null)
         {
-            CommandExecutor.ShowUnknownCommandError(commandName, writer);
+            writer.WriteLine($"Sorry, can't find command with name <{commandName}>");
+            return;
         }
+
+        writer.WriteLine();
+        writer.WriteLine($"{cmd.Usage, 15}\t# {cmd.Description}");
     }
 }
