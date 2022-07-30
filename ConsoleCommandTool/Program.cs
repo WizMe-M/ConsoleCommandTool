@@ -7,7 +7,7 @@ public static class Program
 {
     private static ICommandExecutor CreateExecutor()
     {
-        var executor = new CommandExecutor();
+        var executor = new CommandExecutor(Console.Out);
         executor.Register(new TimerCommand());
         executor.Register(new PrintTimeCommand());
         executor.Register(new DetailedHelpCommand(executor.FindCommand));

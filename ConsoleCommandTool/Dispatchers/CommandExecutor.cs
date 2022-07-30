@@ -8,10 +8,12 @@ namespace ConsoleCommandTool.Dispatchers;
 /// </summary>
 public class CommandExecutor : ICommandExecutor
 {
+    private readonly TextWriter _writer;
     private readonly List<Command> _commands;
 
-    public CommandExecutor()
+    public CommandExecutor(TextWriter writer)
     {
+        _writer = writer;
         _commands = new List<Command>();
     }
 
@@ -30,16 +32,15 @@ public class CommandExecutor : ICommandExecutor
     /// <inheritdoc/>
     public void Execute(string[] args)
     {
-        var writer = Console.Out;
         var commandName = args[0];
         var cmd = FindCommand(commandName);
         if (cmd is null)
         {
-            writer.WriteLine($"Sorry. Unknown command {commandName}");
+            _writer.WriteLine($"Sorry. Unknown command {commandName}");
             return;
         }
 
         var commandArguments = args.Skip(1).ToArray();
-        cmd.Execute(commandArguments, writer);
+        cmd.Execute(commandArguments, _writer);
     }
 }
