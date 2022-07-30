@@ -1,5 +1,6 @@
 ﻿using ConsoleCommandTool.Commands;
 using ConsoleCommandTool.Dispatchers;
+using ConsoleCommandTool.Locator;
 
 namespace ConsoleCommandTool;
 
@@ -7,7 +8,9 @@ public static class Program
 {
     private static ICommandExecutor CreateExecutor()
     {
-        var executor = new CommandExecutor(Console.Out);
+        ServiceLocator.Instance.Register(Console.Out);
+        var writerService = ServiceLocator.Instance.GetService<TextWriter>();
+        var executor = new CommandExecutor(writerService);
         executor.Register(new TimerCommand());
         executor.Register(new PrintTimeCommand());
         executor.Register(new DetailedHelpCommand(executor.FindCommand));
