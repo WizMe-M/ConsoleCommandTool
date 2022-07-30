@@ -35,7 +35,7 @@ public class DetailedHelpCommand : Command
 
     public override void Execute(string[] args, TextWriter writer)
     {
-        var commandName = args[0];
+        var commandName = args[1];
         writer.WriteLine("");
 
         if (commandName == "timer")
